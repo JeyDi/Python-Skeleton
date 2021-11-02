@@ -1,0 +1,5 @@
+{
+    "project": "python-scheleton",
+    "author": "Andrea Guzzo",
+    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}"
+}
