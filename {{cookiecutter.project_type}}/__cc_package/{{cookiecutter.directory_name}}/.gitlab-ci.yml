@@ -1,0 +1,23 @@
+image: python:3.8
+
+publish-package:
+  before_script:
+    - pip install poetry
+    - poetry --version
+    - poetry config repositories.gitlab https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/pypi
+    - poetry config http-basic.gitlab gitlab-ci-token ${CI_JOB_TOKEN}
+  script:
+    - poetry build
+    - poetry publish -r gitlab
+  rules:
+    - if: $CI_COMMIT_TAG
+
+pages:
+  artifacts:
+    paths:
+      - public
+  script:
+    - pip install PyYAML
+    - pip install -U sphinx myst-parser
+    - pip install sphinx-argparse>=0.2.5 sphinx-autodoc-typehints>=1.12.0 sphinx-rtd-theme>=0.5.2
+    - sphinx-build -b html ./docs/ public

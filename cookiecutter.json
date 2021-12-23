@@ -1,5 +1,12 @@
 {
-    "project": "python-scheleton",
-    "author": "Andrea Guzzo",
-    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}"
+    "project_type": [
+        "Base",
+        "FastAPI",
+        "Package",
+        "Streamlit"
+    ],
+    "_copy_without_render": [
+        "__cc_*",
+        "google_no_types.mustache"
+    ]
 }

@@ -15,11 +15,12 @@ APP_PATH: str = os.environ.get("PROJECT_WORKSPACE", os.path.abspath("."))
 CONFIG_PATH: str = os.path.join(APP_PATH, "app", "config")
 DATA_PATH: str = os.path.join(APP_PATH, "app", "data")
 
+
 # Database settings
 DB_CONFIG: dict = {
     "db_name": os.getenv("DB_NAME", "test"),
     "db_user": os.getenv("DB_USER", "root"),
-    "db_password": os.getenv("DB_PASSWORD", "test"),
+    "db_password": os.getenv("DB_PASSWORD", "pbg"),
     "db_port": os.getenv("DB_PORT", "5492"),
     "db_host": os.getenv("DB_HOST", "localhost"),
 }

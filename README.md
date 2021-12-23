@@ -85,11 +85,14 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The goal of this project is to define a Python Scheleton for your every Python project.
+This repository is intended to be used with Cookiecutter to quickly set up python projects from various templates.
+The main reason is efficiency and uniformity among projects, but the hope is that it will be a starting point to
+share knowledge and best coding practices.
 
 
 ### Built With
 
+* Python 3.8
 * [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/)
 * [poetry](https://python-poetry.org/)
 * [pytest](https://docs.pytest.org/en/6.2.x/)
@@ -104,24 +107,10 @@ If you want to use this scheleton app project you can use cookiecutter to downlo
 
 Look into the **Installation** section if you want to know how to use and install this project.
 
-### Prerequisites
-
-If you want to use this project with cookiecutter make sure to have this tools installed
-- python (3.8 or +): better: 3.8.10
-- cookiecutter
-- poetry (if you want to test the example project after the download)
-- docker
-- docker-compose
-
-If you don't know how to install this requirements please check this [site](pythonbiellagroup.it) or google it :) 
-
-### Installation
-
 Cookiecutter is a project template configurator: allows you to download and configure your project easily and in a very simple way.
 
-First of all you have to install cookiecutter on your system.
-
-If you want to download the project using `cookiecutter` you can in your terminal launch:
+- First of all you have to install cookiecutter on your python installation (with pip)
+- Then create the templates launching on your terminal:
 
 ```bash
 
@@ -133,32 +122,61 @@ cookiecutter git@github.com:JeyDi/Python-Skeleton.git
 
 ```
 
-And then follow the instruction in the terminal to clone the project.
+And then follow the instruction in the terminal that will appear to create a specific project.
 
-Then look the **usage** next section to understand how to use the examples.
+### Prerequisites
 
+If you want to use this project with cookiecutter make sure to have this tools installed
+- python (3.8 or +): better: 3.8.10
+- cookiecutter
+- poetry (if you want to test the example project after the download)
+- docker
+- docker-compose
 
-<!-- USAGE EXAMPLES -->
-## Usage
+If you don't know how to install this requirements please check this [site](pythonbiellagroup.it) or google it :) 
 
-### Launch the example project
+### Debug and develop
 
-The example project is a small demo simple features but with an extensible project design folder system.
+If you want to develop, maintain, extend or use this repository you have to setup your environment first
 
-You can use this example for every project:
-- data integrations
-- analysis
-- backend
-- many others...
-
-
-If you want to launch the example project, after the cookiecutter download and requirements installation please do:
-1. Launch: `poetry install` to install the python libraries and dependencies
-2. Launch: `poetry shell` to spawn a new python shell with the new virtualenv created by poetry
-3. Launch the script: `./launch.sh` to launch the example
+- Install a Python 3.8 version (default one, with conda or with pyenv)
+- Install cookiecutter with pip: https://cookiecutter.readthedocs.io/
+```bash
+python3 -m pip install --user cookiecutter
+```
+- Install Poetry (please follow the official guide: https://python-poetry.org/docs/
+```bash
+  # you can use this script to install poetry
+  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+```
+- move into the folder created and launch the following command to create the virtualenvironment
+```bash
+  poetry install
+```
+- During the development, it is sufficient to set up the virtual environment with
+```bash
+  poetry shell
+```
 
 You can use also pip with the requirements.txt file to install the python libraries and dependencies.
 If you want to use pip please consider to create a specific `virtualenv` before.
+
+
+<!-- USAGE EXAMPLES -->
+## Templates implemented
+
+At the moment there are 4 templates already implemented
+
+- Base Python: if you want to build a base python application
+- Package: if you want to create and build a python package
+- FastAPI: an example of a FastAPI project with some examples
+- Streamlit: a template to create a streamlit dashboard application
+
+Next template that we want implement:
+- Flask: a template to create a flask application
+- GUI: a gui interface simple example
+
+Be careful, for now the FastAPI and Streamlit application are not working due to some modifications required
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -172,7 +190,9 @@ If you see something bad or you want to contribute, please open an issue or a pu
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Please feel free to clone and update the code in this repository
+Please feel free to clone and update the code in this repository.
+
+Let me know if something need to be updated or fixed :)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->

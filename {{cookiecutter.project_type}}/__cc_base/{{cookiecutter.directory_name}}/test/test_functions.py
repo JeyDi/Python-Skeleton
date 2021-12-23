@@ -8,9 +8,9 @@ import pytest
 def test_logic_base():
 
     logger.debug("test logic base con messaggio")
-    message = "Ciao e bevenuto!"
+    message = "Ciao JeyDi!"
     message = logic_test(message)
-    assert message == "CIAO E BENVENUTO!"
+    assert message == "CIAO JEYDI!"
 
 
 @pytest.mark.core

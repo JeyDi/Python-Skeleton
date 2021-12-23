@@ -1,0 +1,9 @@
+{
+    "project": "My project",
+    "author": "JeyDi",
+    "pkg_name": "{{ cookiecutter.project|lower|replace(' ', '_') }}",
+    "directory_name": "{{ cookiecutter.pkg_name|replace('_','-') }}",
+    "_copy_without_render": [
+        ".vscode/*"
+    ]
+}

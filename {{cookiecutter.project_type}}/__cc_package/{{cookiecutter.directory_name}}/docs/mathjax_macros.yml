@@ -1,0 +1,20 @@
+loader:
+  load:
+    - "[tex]/color"
+    - "[tex]/newcommand"
+tex:
+  packages:
+    "[+]":
+      - color
+      - newcommand
+  macros:
+    # NOTE: remember to use single quotes ('') or to escape backslashes with double quotes ("")!!
+    hlA:
+      - '{\color{red} #1}'
+      - 1
+    hlB:
+      - '{\color{blue} #1}'
+      - 1
+    fade:
+      - '{\color{gray} #1}'
+      - 1
