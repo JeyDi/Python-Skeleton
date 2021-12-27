@@ -1,0 +1,14 @@
+{
+    "project": "python-scheleton",
+    "author": "Andrea Guzzo",
+    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}",
+    "description": "Description of the project",
+    "_copy_without_render": [
+        ".vscode/*",
+        "notebooks/*",
+        "data/*",
+        ".gitlab/*",
+        ".devcontainer/*",
+        "Dockerfiles/*"
+    ]
+}
