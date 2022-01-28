@@ -3,11 +3,31 @@ import shutil
 from distutils.dir_util import copy_tree
 from cookiecutter.main import cookiecutter
 
+def replace_contents(filename: str, what: str, replacement: str) -> None:
+    """
+    Replace instances of a given string in a file
+
+    Args:
+        filename: The filename to replace within
+        what: The text that should be matched
+        replacement: The text that what should be replaced with
+    """
+    with open(filename) as fh:
+        changelog = fh.read()
+    with open(filename, 'w') as fh:
+        fh.write(changelog.replace(what, replacement))
+
+# today = datetime.date.today()
+# replace_contents('LICENSE', '<YEAR>', today.strftime("%Y"))
+
 map_choice_dir = {
-    'FastAPI': 'fastAPI',
+    
     'Base': 'base',
-    'Streamlit': 'streamlit',
     'Package': 'package',
+    'FastAPI': 'fastAPI',
+    'Streamlit': 'streamlit',
+    'DataScience': 'dataScience',
+    'MKDocs': 'mkdocs',
 }
 
 project_type = "{{ cookiecutter.project_type }}"

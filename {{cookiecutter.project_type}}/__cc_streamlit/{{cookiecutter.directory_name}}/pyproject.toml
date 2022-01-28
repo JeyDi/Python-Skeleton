@@ -3,6 +3,7 @@ name = "{{ cookiecutter.project }}"
 version = "0.1.0"
 description = "{{ cookiecutter.description }}"
 authors = ["{{ cookiecutter.author }}"]
+license = "{{ cookiecutter.open_source_license }}"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"

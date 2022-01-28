@@ -1,12 +1,17 @@
 {
     "project_type": [
         "Base",
-        "FastAPI",
         "Package",
-        "Streamlit"
+        "FastAPI",
+        "Streamlit",
+        "DataScience",
+        "Mkdocs"
     ],
     "_copy_without_render": [
         "__cc_*",
-        "google_no_types.mustache"
+        "google_no_types.mustache",
+        "test_create.py",
+        "post_gen_project.py",
+        "pre_gen_project.py"
     ]
 }

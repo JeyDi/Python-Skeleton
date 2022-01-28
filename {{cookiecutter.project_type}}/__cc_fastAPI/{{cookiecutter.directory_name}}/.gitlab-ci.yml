@@ -1,0 +1,114 @@
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .cache/pip
+
+stages:
+  - test
+  - lint
+  - types
+#   - test
+  - package
+#   - deploy
+#   - docs
+before_script:
+  - pip install poetry
+  - poetry config virtualenvs.create false
+  - poetry install
+
+Unit Tests:
+  stage: test
+  script:
+    - poetry run pytest
+
+Python Code Lint:
+  stage: lint
+  script:
+    - poetry run black .
+
+Static Type check:
+  stage: types
+  script:
+    - poetry run mypy .
+# test:core:
+#   stage: test
+#   image: "python:3.8-slim-buster"
+#   variables:
+#     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+#     PYTHONPATH: $PWD
+#   before_script:
+#     - pip install -U pip
+#     - pip install pytest
+#     - pip install -r requirements.txt
+#   script:
+#     - pytest ./tests
+
+# image:backend:
+#   stage: package
+#   image: docker:19.03.1
+#   services:
+#     - docker:19.03.1-dind
+#   variables:
+#     DOCKER_DRIVER: overlay2
+#     DOCKER_TLS_CERTDIR: "/certs"
+#     IMAGE_NAME: backend
+#     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $CI_REGISTRY_IMAGE/$IMAGE_NAME:$CI_COMMIT_REF_SLUG -f ./Docker/app.dockerfile .
+#     - docker push $CI_REGISTRY_IMAGE/$IMAGE_NAME:$CI_COMMIT_REF_SLUG
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "main"
+
+# image:celery:
+#   stage: package
+#   image: docker:19.03.1
+#   services:
+#     - docker:19.03.1-dind
+#   variables:
+#     DOCKER_DRIVER: overlay2
+#     DOCKER_TLS_CERTDIR: "/certs"
+#     IMAGE_NAME: celery
+#     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $CI_REGISTRY_IMAGE/$IMAGE_NAME:$CI_COMMIT_REF_SLUG -f ./Docker/celery.dockerfile .
+#     - docker push $CI_REGISTRY_IMAGE/$IMAGE_NAME:$CI_COMMIT_REF_SLUG
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "main"
+
+# trigger-deploy:develop:
+#   stage: deploy
+#   before_script:
+#     - apk add --update curl && rm -rf /var/cache/apk/*
+#   script:
+#     - "curl -X POST -F token=565fcbd9c0f088ecac2f37252b4565 -F ref=develop https://gitlab.com/api/v4/projects/19793294/trigger/pipeline"
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "develop"
+
+# trigger-deploy:prod:
+#   stage: deploy
+#   before_script:
+#     - apk add --update curl && rm -rf /var/cache/apk/*
+#   script:
+#     - "curl -X POST -F token=565fcbd9c0f088ecac2f37252b4565 -F ref=master https://gitlab.com/api/v4/projects/19793294/trigger/pipeline"
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "master"
+
+#mkdocs documentation with gitlab pages
+# pages:
+#   #Deploy gitlab pages with documentation
+#   image: python:3.8-buster
+#   # before_script:
+#   #   - pip install -r reqtest.txt
+#   stage: docs
+#   script:
+#     - pip install -r reqtest.txt
+#     - mkdocs build --site-dir public
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - develop
+#   except:
+#     - master

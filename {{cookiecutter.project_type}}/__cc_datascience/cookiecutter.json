@@ -1,0 +1,17 @@
+{
+    "project": "python-scheleton",
+    "project_description": "A short description of the project.",
+    "author": "Andrea Guzzo",
+    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}",
+    "package_name": "{{ cookiecutter.project.lower().replace(' ', '').replace('-', '') }}",
+    "repo_name": "{{ cookiecutter.project.lower().replace(' ', '_') }}",
+    "open_source_license": ["Not open source", "MIT", "LGPL3", "GPL3", "APACHE2"],
+    "_copy_without_render": [
+        ".vscode/*",
+        "notebooks/*",
+        "data/*",
+        ".gitlab/*",
+        ".devcontainer/*",
+        "Dockerfiles/*"
+    ]
+}

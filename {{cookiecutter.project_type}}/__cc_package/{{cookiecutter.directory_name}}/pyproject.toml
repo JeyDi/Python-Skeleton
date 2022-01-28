@@ -8,6 +8,7 @@ name = "{{cookiecutter.pkg_name}}"
 version = "0.1.0"
 description = "Python Application Template Getting Started"
 authors = ["{{cookiecutter.author}}"]
+license = "{{ cookiecutter.open_source_license }}"
 
 
 [tool.poetry.dependencies]

@@ -1,3 +1,21 @@
 {
-    "custom_option": "ASDJLJASDL"
+    "project": "python-scheleton",
+    "project_description": "Short description of the FastAPI Project",
+    "author": "Andrea Guzzo",
+    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}",
+    "open_source_license": [
+        "Not open source",
+        "MIT",
+        "LGPL3",
+        "GPL3",
+        "APACHE2"
+    ],
+    "_copy_without_render": [
+        ".vscode/*",
+        "dashboards/*",
+        ".github/*",
+        "alembic/*",
+        ".gitlab/*",
+        ".devcontainer/*"
+    ]
 }

@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "{{cookiecutter.project}}"
+version = "0.1.0"
+description = "{{cookiecutter.project_description}}"
+authors = ["{{cookiecutter.author}}"]
+license = "{{ cookiecutter.open_source_license }}"
+readme = "README.md"
+homepage = ""
+repository = ""
+documentation = ""
+
+classifiers = [
+    "Topic :: DataScience",
+    "Topic :: Notebooks",
+    "Topic :: MachineLearning",
+    "Topic :: Template"
+]
+
+[tool.poetry.dependencies]
+python = "3.8.12"
+setuptools = "59.6.0"
+requests = "^2.25.1"
+pydantic = "^1.8.2"
+pytest = "^6.2.5"
+SQLAlchemy = "^1.4.23"
+psycopg2-binary = "^2.9.1"
+unidecode = "^1.3.2"
+pyyaml = "^5.4.1"
+pyaml = "^21.8.3"
+passlib = "^1.7.4"
+sqlalchemy-json = "^0.4.0"
+python-dotenv = "^0.19.2"
+alembic = "^1.7.5"
+
+
+[tool.poetry.dev-dependencies]
+flake8 = "3.9.2"
+flake8-isort = "4.0.0"
+flake8-builtins = "1.5.3"
+autopep8 = "1.5.7"
+pylint = "2.8.2"
+bandit = "1.7.0"
+black = "21.5b0"
+mypy = "0.812"
+flake8-bandit = "2.1.2"
+flake8-mypy = "17.8.0"
+sqlalchemy-stubs = "^0.3"
+pytest-cov = "^2.8.1"
+autoflake = "^1.3.1"
+ipython = "^7.27.0"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 120
+
+[build-system]
+requires = ["poetry-core>=1.0.8"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "db: mark test for db functionalities",
+    "app: all about the app",
+    "api: all about the api",
+]

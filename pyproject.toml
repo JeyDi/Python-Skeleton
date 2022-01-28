@@ -3,6 +3,7 @@ name = "python_skeleton"
 version = "0.1.0"
 description = "Python templates collection"
 authors = ["JeyDi"]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"

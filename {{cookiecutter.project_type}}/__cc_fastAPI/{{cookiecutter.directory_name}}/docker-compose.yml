@@ -1,0 +1,144 @@
+version: "3.8"
+services:
+  #Fastapi backend
+  backend:
+    build:
+      dockerfile: ./Docker/app.dockerfile
+      context: .
+    container_name: backend
+    # env_file:
+    #   - .env
+    restart: always
+    environment:
+      #   EMAIL: "andrea.guzzo92@gmail.com"
+      DEBUG_MODE: ${DEBUG_MODE:-True}
+      APP_VERBOSITY: ${APP_VERBOSITY:-DEBUG}
+      #   API_SECRET_KEY: ${APP_SECRET_KEY}
+      #   API_ENDPOINT_PORT: ${APP_ENDPOINT_PORT}
+      DB_NAME: ${DB_NAME:-fastapi}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-SUPERduper42}
+      DB_PORT: ${APP_DB_PORT:-5432}
+      DB_HOST: ${APP_DB_HOST:-db}
+    depends_on:
+      - db
+    ports:
+      - "${APP_DOCKER_PORT:-8044}:${APP_ENDPOINT_PORT:-8000}"
+
+  #Postgres database
+  db:
+    build:
+      dockerfile: ./Docker/db.dockerfile
+      context: .
+    container_name: db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME:-fastapi}
+      POSTGRES_USER: ${DB_USER:-root}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-SUPERduper42}
+    ports:
+      - "${DB_PORT:-5442}:5432"
+    volumes:
+      - "${POSTGRES_DATA_DIR:-/opt/fastapi/data/postgres}:/var/lib/postgresql/d\
+        ata"
+      - "${POSTGRES_BACKUP_DIR:-/opt/fastapi/backup}:/project/backup"
+
+  #Redis database (used with celery)
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    env_file:
+      - .env
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  #Celery single worker
+  worker:
+    build:
+      dockerfile: ./Docker/celery.dockerfile
+      context: .
+    container_name: worker
+    command: celery --app=app.celery.app.worker worker --loglevel=info
+      --logfile=logs/celery.log
+    # volumes:
+    #   - ${CELERY_VOLUME:-./volumes/celery}:/app
+    env_file:
+      - .env
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
+      RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-guest}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+    ports:
+      - "${CELERY_PORT:-5443}:5555"
+    depends_on:
+      - backend
+      - redis
+      # - rabbitmq
+
+      #Flower celery dashboard monitoring service
+  dashboard:
+    build:
+      dockerfile: ./Docker/celery.dockerfile
+      context: .
+    container_name: dashboard
+    command: celery --app=app.celery.app.worker flower
+      --port=${CELERY_INTERNAL_PORT:-5555}
+      --broker=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    ports:
+      - ${FLOWER_PORT:-5556}:5555
+    env_file:
+      - .env
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
+      RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-guest}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+    depends_on:
+      - backend
+      - redis
+      - worker
+      # - rabbitmq
+
+      #if you want to use rabbitmq instead of redis
+      # rabbit:
+      #   container_name: rabbit
+      #   image: rabbitmq:3.9.12
+      #   env_file:
+      #     - .env
+      #   environment:
+      #   RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
+      #   RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-guest}
+      #   RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-guest}
+      #   RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+      #   volumes:
+      #     - ".rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf"
+      #   ports:
+      #     - "${RABBITMQ_PORT:-5672}:5672"
+
+      # If you want to use grafana or prometheus dashboards
+      # prometheus:
+      #   image: prom/prometheus:v2.32.1
+      #   container_name: prometheus
+      #   env_file:
+      #     - .env
+      #   volumes:
+      #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      #   ports:
+      #     - ${PROMETHEUS_PORT:-9090}:9090
+
+      # grafana:
+      #   image: grafana/grafana:8.3.3
+      #   container_name: grafana
+      #   env_file:
+      #     - .env
+      #   depends_on:
+      #     - prometheus
+      #   ports:
+      #     - ${GRAFANA_PORT:-3000}:3000

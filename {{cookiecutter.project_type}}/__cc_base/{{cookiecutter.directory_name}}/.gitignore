@@ -8,6 +8,9 @@
 #### > CUSTOM RULES ####
 ########################
 
+.DS_Store
+.venv
+
 #We don't want to push the data
 *.csv
 *.xlsx
@@ -27,7 +30,6 @@ logs
 *.csv
 !.devcontainer
 !.flake8
-poetry.lock
 
 ##########################################
 #### > PyCharm e JetBrains con JIRA  #####

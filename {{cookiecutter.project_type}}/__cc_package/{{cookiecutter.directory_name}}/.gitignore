@@ -4,6 +4,9 @@
 #### > CUSTOM RULES ####
 ########################
 
+.DS_Store
+.venv
+
 # Compiled readme file
 README.html
 
@@ -26,7 +29,6 @@ logs
 *.csv
 !.devcontainer
 !.flake8
-poetry.lock
 
 ##########################################
 #### > PyCharm e JetBrains con JIRA  #####

@@ -194,6 +194,13 @@ Please feel free to clone and update the code in this repository.
 
 Let me know if something need to be updated or fixed :)
 
+<!-- References -->
+## References
+
+The Data Science templates is based on this repositories:
+- [drivendata/cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science)
+- [equinor/data-science-template](https://github.com/equinor/data-science-template)
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

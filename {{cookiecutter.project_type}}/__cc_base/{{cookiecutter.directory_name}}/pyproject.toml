@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "{{cookiecutter.project}}"
 version = "0.1.0"
-description = "Python Application Template Getting Started"
+description = "{{cookiecutter.project_description}}"
 authors = ["{{cookiecutter.author}}"]
+license = "{{cookiecutter.open_source_license}}"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"

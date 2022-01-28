@@ -1,0 +1,18 @@
+{
+    "project": "My project",
+    "author": "JeyDi",
+    "project_description": "Documentation page with mkdocs",
+    "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}",
+    "open_source_license": [
+        "Not open source",
+        "MIT",
+        "LGPL3",
+        "GPL3",
+        "APACHE2"
+    ],
+    "_copy_without_render": [
+        ".vscode/*",
+        ".gitlab/*",
+        ".github/*"
+    ]
+}
