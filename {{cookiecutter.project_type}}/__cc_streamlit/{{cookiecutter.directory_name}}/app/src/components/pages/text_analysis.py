@@ -6,7 +6,7 @@ from app.src.common.importer import read_dataframe
 
 
 def app():
-    st.title("PBG Airtag analysis")
+    st.title("{{cookiecutter.project}} example")
     st.subheader("Text Analysis Page")
 
     df = read_dataframe()

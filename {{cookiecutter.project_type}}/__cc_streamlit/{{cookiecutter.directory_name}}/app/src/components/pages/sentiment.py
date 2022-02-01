@@ -1,21 +1,17 @@
 import streamlit as st
 
 from app.src.common.sentiment import (
-    azure_sentiment,
     text_blob_sentiment,
     vader_sentiment,
 )
 
 
 def app():
-    st.title("PBG Airtag analysis")
+    st.title("{{cookiecutter.project}} example")
     st.subheader("Sentiment Analysis Page")
 
     st.markdown(
         """
-            ### Azure Cognitive Services
-            
-            this is a pay as you go service provided by Microsoft Azure. The sentiment analysis feature provides sentiment labels (such as "negative", "neutral" and "positive") based on the highest confidence score found by the service at a sentence and document-level.
             
             ### VADER
             It is a simple lexicon and rule-based model for general sentiment analysis.
@@ -41,9 +37,9 @@ def app():
                 key="textarea_azure",
             )
             col1, col2, col3 = st.columns(3)
-            if col1.button("Launch Azure Analysis", key="button_azure"):
-                score, sentiment = azure_sentiment([text])
-                st.write(f"Sentiment: {sentiment} with score: {score}")
+            if col1.button("Test button", key="test_button"):
+                
+                st.write(f"This is just a test button")
 
             if col2.button("Launch Vader Analysis", key="button_vader"):
                 score = vader_sentiment([text])

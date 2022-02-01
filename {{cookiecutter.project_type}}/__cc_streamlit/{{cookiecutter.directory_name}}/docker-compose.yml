@@ -5,13 +5,11 @@ services:
     build:
       dockerfile: ./Dockerfiles/app.dockerfile
       context: .
-    container_name: app-core
+    container_name: {{cookiecutter.project}}-dashboard
     env_file:
       - .env
     restart: always
     environment:
-      EMAIL: "andrea.guzzo92@gmail.com"
-      DEBUG_MODE: ${APP_DEBUG_MODE}
       VERBOSITY: ${APP_VERBOSITY}
     depends_on:
       - db
@@ -24,7 +22,7 @@ services:
       context: .
     env_file:
       - .env
-    container_name: app-db
+    container_name: {{cookiecutter.project}}-db
     #image: postgres:13.2
     environment:
       POSTGRES_DB: ${APP_DB_NAME}
@@ -33,5 +31,5 @@ services:
     ports:
       - ${EXTERNAL_DB_PORT:-5492}:5432
     volumes:
-      - ${POSTGRES_DATA_DIR:-/opt/admin-app/data/postgres}:/var/lib/postgresql/data
-      - ${POSTGRES_BACKUP_DIR:-/opt/admin-app/backup}:/project/backup
+      - ${POSTGRES_DATA_DIR:-./volumes/db/data}:/var/lib/postgresql/data
+      - ${POSTGRES_BACKUP_DIR:-./volumes/db/backup}:/project/backup

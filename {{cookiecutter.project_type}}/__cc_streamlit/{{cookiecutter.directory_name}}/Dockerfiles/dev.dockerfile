@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 # Metadata
 LABEL name="Application Dev Container"
-LABEL maintainer="PBG"
+LABEL maintainer={{cookiecutter.author}}
 LABEL version="0.1"
 
 ARG YOUR_ENV="virtualenv"
@@ -34,7 +34,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y libpq-dev gcc cu
 
 ##########################
 # Project Python definition
-WORKDIR /admin_app
+WORKDIR /{{cookiecutter.project}}
 
 #Copy all the project files
 COPY . .
