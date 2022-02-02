@@ -24,9 +24,9 @@ map_choice_dir = {
     
     'Base': 'base',
     'Package': 'package',
-    'FastAPI': 'fastAPI',
+    'FastAPI': 'fastapi',
     'Streamlit': 'streamlit',
-    'DataScience': 'dataScience',
+    'DataScience': 'datascience',
     'MKDocs': 'mkdocs',
 }
 
