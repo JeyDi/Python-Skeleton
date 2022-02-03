@@ -1,13 +1,11 @@
 version: '3.8'
 services:
-  admin_app_dev:
+  backend-dev:
     build:
       dockerfile: ./Docker/dev.dockerfile
       context: ../
     restart: always
     environment:
-      EMAIL: "andrea.guzzo92@gmail.com"
-      DEBUG_MODE: "False"
       VERBOSITY: "info"
     volumes:
       - ..:/workspace:cached
