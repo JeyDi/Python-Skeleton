@@ -1,6 +1,6 @@
 ---
 title: API Page
-disquis: {{cookiecutter.author}}
+disquis: MDPI
 ---
 <!-- metatag example -->
 
@@ -9,7 +9,7 @@ disquis: {{cookiecutter.author}}
 Try to visualize some python functions inside the documentation with the docstring and informations about it
 
 ## Testdocs function
-::: db_scripts.test.testdocs
+<!-- ::: db_scripts.test.testdocs -->
 <!-- ::: db_scripts.test.testdocs -->
 
 
@@ -17,4 +17,4 @@ Try to visualize some python functions inside the documentation with the docstri
 
 Informations inside the package common utils
 
-::: common.utils
+<!-- ::: common.utils -->

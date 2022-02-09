@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  #MKDocs documentation on docker
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: mkdocs
+    # env_file:
+    #   - .env
+    restart: always
+    environment:
+      #   EMAIL: "andrea.guzzo92@gmail.com"
+      APP_VERBOSITY: ${APP_VERBOSITY:-DEBUG}
+      APP_DOCKER_PORT: ${APP_DOCKER_PORT:-8044}
+      APP_ENDPOINT_PORT: ${APP_ENDPOINT_PORT:-8000}
+    # depends_on:
+    #   - db
+    ports:
+      - "${APP_DOCKER_PORT:-8044}:${APP_ENDPOINT_PORT:-8000}"

@@ -1,10 +1,10 @@
-# {{cookiecutter.project}}
+# provalo
 
 Official documentation tool and example for you project
 
-{{cookiecutter.project_description}}
+Documentation page with mkdocs
 
-Check out [TestObject][db_scripts.test.testdocs] for more informations about docstrings
+<!-- Check out [TestObject][db_scripts.test.testdocs] for more informations about docstrings -->
 
 Try to insert a code block
 ``` python

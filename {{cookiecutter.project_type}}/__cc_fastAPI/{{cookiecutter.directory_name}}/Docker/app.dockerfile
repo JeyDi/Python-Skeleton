@@ -33,7 +33,6 @@ WORKDIR /fastapi
 #Copy all the project files
 COPY pyproject.toml .
 COPY poetry.lock .
-COPY poetry.toml .
 COPY /app ./app
 COPY .env .
 COPY ./scripts/launch.sh .
@@ -46,3 +45,7 @@ RUN poetry config virtualenvs.create false \
 #Launch the main (if required)
 RUN chmod +x launch.sh
 CMD ["bash", "launch.sh"]
+
+#keep the container running in background
+# ENTRYPOINT ["tail"]
+# CMD ["-f","/dev/null"]

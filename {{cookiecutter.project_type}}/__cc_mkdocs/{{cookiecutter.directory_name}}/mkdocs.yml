@@ -3,8 +3,8 @@
 # To build mkdocs use: mkdocs build --clean
 
 # Project information
-site_name: JeyDI Documentation
-site_url: https://andreaguzzo.com
+site_name: { { cookiecutter.project } }
+site_url: https://{{cookiecutter.project}}.com
 site_description: docs website test
 site_author: { { cookiecutter.author } }
 copyright: Made with ♥ by {{cookiecutter.author}}
@@ -76,6 +76,10 @@ plugins:
   - autorefs
   - minify:
       minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
   - mkdocs-jupyter:
       kernel_name: python3
       include_source: True
@@ -92,14 +96,13 @@ plugins:
               - "!^_" # exclude all members starting with _
               - "!^__init__$" # exclude __init__ modules and methods
       custom_templates: templates
-      watch:
-        - common
-        - component_creator
-        - cron
-        - db_scripts
-        - importer
-        - kpi
-        - settings
+      # watch:
+      #   - common
+      #   - component_creator
+      #   - cron
+      #   - importer
+      #   - kpi
+      #   - settings
   - redirects:
       redirect_maps:
         changelog/insiders.md: insiders/changelog.md
@@ -124,9 +127,6 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.snippets
   - pymdownx.tabbed
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.arithmatex:
       generic: true
 
@@ -139,11 +139,11 @@ extra_javascript:
 
 #Extra material theme settings
 extra:
-  disqus: { { cookiecutter.author } }
+  disqus: MDPI
   generator: false
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
+  # analytics:
+  #   provider: google
+  #   property: !ENV GOOGLE_ANALYTICS_KEY
   social:
     - icon: fontawesome/solid/paper-plane
       link: mailto:<email-address>
@@ -171,12 +171,10 @@ nav:
       - Test functions: functions/workflows.md
   - Blog:
       - blog/index.md
-  # - Reference:
-  #     - CLI: main.md
-  #     - Configuration: config.md
-  #     - Data: data.md
-  #     - Models: models.md
-  #     - Training: train.md
-  #     - Inference: predict.md
-  #     - Utilities: utils.md
-  # - API: api.md
+  - Changelog:
+      - changelog/index.md
+      - How to upgrade: upgrade.md
+  - Reference:
+      - reference/index.md
+  - Insiders:
+      - insiders/index.md
