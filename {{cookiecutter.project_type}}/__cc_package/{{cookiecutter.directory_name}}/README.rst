@@ -1,4 +1,0 @@
-README
-======
-
-{{cookiecutter.project}} readme

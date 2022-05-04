@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split
 
 def init():
     global model
-    model_path = Model.get_model_path('<mlops_name>')
+    model_path = Model.get_model_path("<mlops_name>")
     # deserialize the model file back into a sklearn model
     model = joblib.load(model_path)
 
@@ -24,7 +24,7 @@ def init():
 # note you can pass in multiple rows for scoring
 def run(raw_data):
     try:
-        data = json.loads(raw_data)['data']
+        data = json.loads(raw_data)["data"]
         data = numpy.array(data)
         result = model.predict(data)
         # you can return any datatype if it is JSON-serializable
@@ -74,8 +74,8 @@ def main():
 
     # model accuracy
     accuracy = accuracy_score(y_test, y_pred)
-    print('Accuracy of SVM classifier on test set: {:.2f}'.format(accuracy))
+    print("Accuracy of SVM classifier on test set: {:.2f}".format(accuracy))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

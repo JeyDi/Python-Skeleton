@@ -1,5 +1,6 @@
 from typing import List
 from app.src.logger import logger
+from app.src.config import settings
 
 
 def logic_test(message: str = None) -> str:
@@ -25,7 +26,7 @@ def logic_test(message: str = None) -> str:
         logger.exception(f"Error: {e}")
         raise Exception(e)
 
-    logger.debug(f"Message modified: {message}")
+    logger.debug(f"Message modified: {message} on the app: {settings.APP_NAME}")
 
     return message
 

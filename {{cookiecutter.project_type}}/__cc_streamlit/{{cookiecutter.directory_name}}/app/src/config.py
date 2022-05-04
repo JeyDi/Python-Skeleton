@@ -15,18 +15,16 @@ class Settings(BaseSettings):
     - https://pydantic-docs.helpmanual.io/usage/settings/
     """
 
-    
     APP_NAME: str = "{{cookiecutter.project}}"
 
     # Application Path
     APP_PATH: str = os.path.abspath(".")
 
     # Path for optional app configurations
-    CONFIG_PATH: str = os.path.join(APP_PATH, "app", "config")    
+    CONFIG_PATH: str = os.path.join(APP_PATH, "app", "config")
     STATIC_PATH: str = os.path.join(APP_PATH, "app", "static")
     DATA_PATH: str = os.path.join(APP_PATH, "data")
 
-    
     APP_VERBOSITY: str = "DEBUG"
 
     class Config:

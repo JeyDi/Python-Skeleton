@@ -1,18 +1,21 @@
 {
-    "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": false,
-    "python.linting.enabled": true,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5442,
-            "driver": "PostgreSQL",
-            "name": "FastAPI Local",
-            "username": "root",
-            "database": "fastapi",
-            "password": "SUPERduper42"
-        }
-    ]
+  "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": false,
+  "python.linting.enabled": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5442,
+      "driver": "PostgreSQL",
+      "name": "FastAPI Local",
+      "username": "root",
+      "database": "fastapi",
+      "password": "SUPERduper42"
+    }
+  ],
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "python.formatting.provider": "black"
 }

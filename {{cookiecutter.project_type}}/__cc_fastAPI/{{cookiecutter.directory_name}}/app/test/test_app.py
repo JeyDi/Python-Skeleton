@@ -4,10 +4,12 @@ import pytest
 
 client = TestClient(app)
 
+
 @pytest.mark.app
 def test_index():
     response = client.get("/")
     assert response.status_code == 200
+
 
 @pytest.mark.app
 def test_default():

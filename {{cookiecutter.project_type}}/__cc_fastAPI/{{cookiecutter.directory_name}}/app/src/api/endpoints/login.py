@@ -72,7 +72,9 @@ async def retrieve_user_by_token(token: str) -> Any:
 
 
 @router.post("/test-token-user")
-async def test_token_simple(current_user: user.UserBase = Depends(get_current_user)) -> Any:
+async def test_token_simple(
+    current_user: user.UserBase = Depends(get_current_user),
+) -> Any:
     """
     Test access token and retrieve information about the user
     """

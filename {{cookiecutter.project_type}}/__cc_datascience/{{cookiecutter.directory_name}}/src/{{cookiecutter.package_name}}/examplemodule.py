@@ -33,8 +33,7 @@ def add_value_to_numpy(array: np.ndarray, amount: float = 1) -> np.ndarray:
         >>> result_array = add_value_to_numpy(array, 1)
 
     """
-    if array is None or \
-            not isinstance(array, np.ndarray):
+    if array is None or not isinstance(array, np.ndarray):
         raise ValueError("array must be a valid ndarray")
     # if isinstance(a, np.ndarray):
 

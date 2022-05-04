@@ -25,7 +25,7 @@ from sklearn.svm import SVC
 from amlrun import get_AMLRun
 
 
-def train(output_dir='outputs', kernel='linear', penalty=1.0):
+def train(output_dir="outputs", kernel="linear", penalty=1.0):
     # make sure output directory exist
     os.makedirs(output_dir, exist_ok=True)
 
@@ -41,23 +41,25 @@ def train(output_dir='outputs', kernel='linear', penalty=1.0):
     class_names = iris.target_names
 
     # dividing X, y into train and test data. Random seed for reproducability
-    X_train, X_test, y_train, y_test = \
-        train_test_split(X, y, test_size=0.20, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.20, random_state=0
+    )
 
     # create our model - a linear SVM classifier
     svm_model_linear = SVC(kernel=kernel, C=penalty)
 
     # evaluate each model in turn
     kfold = StratifiedKFold(n_splits=10, random_state=1)
-    cv_results = cross_val_score(svm_model_linear, X_train, y_train,
-                                 cv=kfold, scoring='accuracy')
+    cv_results = cross_val_score(
+        svm_model_linear, X_train, y_train, cv=kfold, scoring="accuracy"
+    )
 
-    print('Cross Validation Mean: ', cv_results.mean())
-    print('Cross Validation Std: ', cv_results.std())
+    print("Cross Validation Mean: ", cv_results.mean())
+    print("Cross Validation Std: ", cv_results.std())
     if run is not None:
-        run.log_list('Cross Validation Accuracies', cv_results)
-        run.log('Cross Validation Mean', cv_results.mean())
-        run.log('Cross Validation Std', cv_results.std())
+        run.log_list("Cross Validation Accuracies", cv_results)
+        run.log("Cross Validation Mean", cv_results.mean())
+        run.log("Cross Validation Std", cv_results.std())
 
     # now training on the full dataset
     svm_model_linear.fit(X_train, y_train)
@@ -65,13 +67,15 @@ def train(output_dir='outputs', kernel='linear', penalty=1.0):
 
     # model accuracy for X_test
     accuracy = svm_model_linear.score(X_test, y_test)
-    print('Accuracy of SVM classifier on test set: {:.2f}'.format(accuracy))
+    print("Accuracy of SVM classifier on test set: {:.2f}".format(accuracy))
     if run is not None:
-        run.log('Accuracy', np.float(accuracy))
+        run.log("Accuracy", np.float(accuracy))
 
     # Plot non-normalized confusion matrix
-    title = 'Test confusion matrix'
-    disp = plot_confusion_matrix(svm_model_linear, X_test, y_test,display_labels=class_names,cmap=plt.cm.Blues)
+    title = "Test confusion matrix"
+    disp = plot_confusion_matrix(
+        svm_model_linear, X_test, y_test, display_labels=class_names, cmap=plt.cm.Blues
+    )
     disp.ax_.set_title(title)
     print(title)
     print(disp.confusion_matrix)
@@ -79,39 +83,43 @@ def train(output_dir='outputs', kernel='linear', penalty=1.0):
     if run is not None:
         run.log_image(title, plot=plt)
     else:
-        plt.savefig(os.path.join(output_dir, 'confusion_matrix.png'))
+        plt.savefig(os.path.join(output_dir, "confusion_matrix.png"))
 
     # Plot normalized confusion matrix
-    title = 'Normalized test confusion matrix'
-    disp = plot_confusion_matrix(svm_model_linear, X_test, y_test,
-                                    display_labels=class_names,
-                                    cmap=plt.cm.Blues,
-                                    normalize='true')
+    title = "Normalized test confusion matrix"
+    disp = plot_confusion_matrix(
+        svm_model_linear,
+        X_test,
+        y_test,
+        display_labels=class_names,
+        cmap=plt.cm.Blues,
+        normalize="true",
+    )
     disp.ax_.set_title(title)
     print(title)
     print(disp.confusion_matrix)
 
     if run is not None:
-        run.log_image(title,  plot=plt)
+        run.log_image(title, plot=plt)
     else:
-        plt.savefig(
-            os.path.join(output_dir, 'confusion_matrix_normalised.png'))
+        plt.savefig(os.path.join(output_dir, "confusion_matrix_normalised.png"))
 
     # Print classification report
     print(classification_report(y_test, y_pred))
 
     # files saved in the "outputs" folder are automatically uploaded into
     # Azure ML Service run history
-    model_folder = os.path.join(output_dir, 'model')
-    model_path = os.path.join(model_folder, '<mlops_name>.joblib')
+    model_folder = os.path.join(output_dir, "model")
+    model_path = os.path.join(model_folder, "<mlops_name>.joblib")
     os.makedirs(model_folder, exist_ok=True)
     joblib.dump(svm_model_linear, model_path)
-    print('Output saved to', output_dir)
+    print("Output saved to", output_dir)
 
 
 def main(arguments):
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     # environment parameters
     # parser.add_argument(
     #     '--data-folder',
@@ -120,16 +128,22 @@ def main(arguments):
     # )
 
     parser.add_argument(
-        "--output-dir", type=str,
-        default=os.path.join('..', '..', 'data', 'training', 'outputs'),
-        help='location to write output'
+        "--output-dir",
+        type=str,
+        default=os.path.join("..", "..", "data", "training", "outputs"),
+        help="location to write output",
     )
 
     # training specific parameters
-    parser.add_argument('--kernel', type=str, default='linear',
-                        help='Kernel type to be used in the algorithm')
-    parser.add_argument('--penalty', type=float, default=1.0,
-                        help='Penalty parameter of the error term')
+    parser.add_argument(
+        "--kernel",
+        type=str,
+        default="linear",
+        help="Kernel type to be used in the algorithm",
+    )
+    parser.add_argument(
+        "--penalty", type=float, default=1.0, help="Penalty parameter of the error term"
+    )
 
     # parse the arguments
     args = parser.parse_args(arguments)
@@ -143,5 +157,5 @@ def main(arguments):
     train(args.output_dir, args.kernel, args.penalty)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

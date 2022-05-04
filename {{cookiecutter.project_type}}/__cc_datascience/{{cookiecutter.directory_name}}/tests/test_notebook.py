@@ -9,15 +9,24 @@ def run_notebook(filename):
     Execute the specified notebook via jupyter nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """
-    os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
     # get temporary file ( and then close to avoid multiple write problems
     with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
         temp_name = fout.name
 
     # run jupyter nbconvert
-    args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
-            "--ExecutePreprocessor.timeout=60", "--output", fout.name, filename]
+    args = [
+        "jupyter",
+        "nbconvert",
+        "--to",
+        "notebook",
+        "--execute",
+        "--ExecutePreprocessor.timeout=60",
+        "--output",
+        fout.name,
+        filename,
+    ]
     subprocess.check_call(args, shell=True)
 
     # read and parse notebook
@@ -25,9 +34,13 @@ def run_notebook(filename):
         fout.seek(0)
         nb = nbformat.read(fout, nbformat.current_nbformat)
 
-    errors = [output for cell in nb.cells if "outputs" in cell
-              for output in cell["outputs"]
-              if output.output_type == "error"]
+    errors = [
+        output
+        for cell in nb.cells
+        if "outputs" in cell
+        for output in cell["outputs"]
+        if output.output_type == "error"
+    ]
 
     return nb, errors
 

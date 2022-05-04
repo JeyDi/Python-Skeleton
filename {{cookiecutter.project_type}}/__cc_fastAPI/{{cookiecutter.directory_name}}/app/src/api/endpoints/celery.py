@@ -26,11 +26,11 @@ def get_query(background_tasks: BackgroundTasks, q: Optional[str] = None):
 
 @router.get("/test/{word}")
 async def test_celery(word: str):
-    '''
+    """
     Verify if Celery is working correctly
     @param {str} word - str
     @returns The task id.
-    '''
+    """
     start_date = dt.datetime.now()
     task_result = worker.test_celery.delay(word)
     profiling_api("task:get:status", start_date, "info")

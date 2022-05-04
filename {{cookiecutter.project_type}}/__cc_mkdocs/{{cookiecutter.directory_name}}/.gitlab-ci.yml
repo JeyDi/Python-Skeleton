@@ -13,6 +13,13 @@ pages:
   script:
     - pip install -r mkdocs.txt
     - mkdocs build --site-dir public
+    # - rm -rf poetry.toml
+    # - pip install --upgrade pip
+    # - pip install poetry==1.1.13
+    # - poetry config virtualenvs.in-project true
+    # - poetry install -vv
+    # - source `poetry env info --path`/bin/activate
+    # - make docs_public
   artifacts:
     paths:
       - public

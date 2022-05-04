@@ -37,7 +37,7 @@ def add_user() -> None:
         existing_user = (
             session.query(User).filter(User.username == admin_user.username).first()
         )
-        
+
     if existing_user:
         logger.debug("User already existing")
     else:

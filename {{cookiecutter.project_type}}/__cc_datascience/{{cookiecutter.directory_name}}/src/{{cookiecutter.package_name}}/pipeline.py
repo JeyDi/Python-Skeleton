@@ -25,5 +25,3 @@ def run_pipeline(local_data_path: str):
     # Add calls to features.Xxx here
 
     # save (or return) dataframe here?
-
-

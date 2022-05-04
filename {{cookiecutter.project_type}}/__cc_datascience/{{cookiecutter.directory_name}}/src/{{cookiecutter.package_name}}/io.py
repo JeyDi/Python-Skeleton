@@ -10,7 +10,7 @@ from statoilds import datalake
 
 
 class IO:
-    local_data_path = '.'
+    local_data_path = "."
 
     def __init__(self, local_data_path: str):
         """
@@ -35,11 +35,11 @@ class IO:
         """
         local_path = os.path.join(self.local_data_path, self.cleaned_file_local)
 
-        token = datalake.login_and_download_file(self.cleaned_file_remote,
-                                                 local_path,
-                                                 download_always=download_always)
+        token = datalake.login_and_download_file(
+            self.cleaned_file_remote, local_path, download_always=download_always
+        )
 
-        df = pd.read_csv(local_path,
-                         dtype={'Well_name': 'category'},
-                         parse_dates=['start'])
+        df = pd.read_csv(
+            local_path, dtype={"Well_name": "category"}, parse_dates=["start"]
+        )
         return df

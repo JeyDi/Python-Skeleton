@@ -50,29 +50,11 @@ pypi:
 	python setup.py bdist_wheel --universal
 	twine upload dist/*
 
-.PHONY: docs_launch
-docs_launch:
-	mkdocs serve
+### Project specific tasks
+.PHONY: project
+launch_py3:
+	python3 app/main.py
 
-.PHONY: docs_build
-docs_build:
-	mkdocs build
-
-.PHONY: docs_launch_docker
-docs_launch_docker:
-	mkdocs build
-	mkdocs serve --dev-addr=0.0.0.0:8000
-
-.PHONY: docs_debug_docker
-docs_launch_debug_docker:
-	mkdocs build
-	mkdocs serve -v --dev-addr=0.0.0.0:8000
-
-.PHONY: docs_deploy-github
-docks_deploy: 
-	mkdocs build
-	mkdocs gh-deploy --force
-
-.PHONY: docs_public
-docs_public:
-	mkdocs build -c -v --site-dir public
+.PHONY: project
+launch_py:
+	python app/main.py

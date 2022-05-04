@@ -34,10 +34,10 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    '''
+    """
     It returns the database URL.
     @returns The connection string.
-    '''
+    """
     # user = settings.DB_USER
     # password = settings.DB_PASSWORD
     # server = settings.DB_HOST

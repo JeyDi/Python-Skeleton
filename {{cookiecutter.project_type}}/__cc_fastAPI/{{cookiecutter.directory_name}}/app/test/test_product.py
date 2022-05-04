@@ -4,11 +4,13 @@ import pytest
 
 client = TestClient(app)
 
+
 @pytest.mark.api
 def test_product_getall():
     response = client.get("/api/v1/products")
     assert response.status_code == 200
     assert len(response.json()) == 2
+
 
 # def test_product_getone():
 #     response = client.get("/products/1")
