@@ -63,6 +63,13 @@ POSTGRES_DATA_DIR=<your_machine_data_folder>
 POSTGRES_BACKUP_DIR=<your_machine_backup_folder>
 ```
 
+### Launching the project
+
+If you want to launch the project locally you can use:
+1. the terminal launching the scripts inside the folder: `scripts`
+2. using docker
+3. using vscode debugger (already setupped)
+
 
 ## VSCode settings
 
@@ -141,18 +148,8 @@ Substitute `<path of your local virtualenv>` with the path copied from `poetry s
 After this reload vscode and every time you open a new windows vscode automatically activate the venv created with poetry for you.
 
 ### Usefull dev extensions
-- Python (with Pylance):
-- Jupyter:
-- Docker: 
-- Todo Tree:
-- Remote development:
-- Live share: 
-- docks-markdown:
-- docks-preview:
-- Git History:
-- Git Lens:
-- indent-rainbow: 
-- Prettier - Code formatter
+
+If you want some informations about dev extension for this repository for VSCode look inside `.vscode/extensions.json` file.
 
 ### Other informations about vscode or python configurations
 
@@ -195,7 +192,7 @@ First of all check if you have all the tools installed correctly on your machine
 If you want to launch the code (flask backend) in production mode with `gunicorn` you can use the `launch.sh` script located inside the main folder.
 
 Remember to set the permissions of the script: `sudo chmod +x launch.sh`
-Launch with: `./launch.sh`
+Launch with: `./scripts/launch.sh`
 
 If you get the error: `gunicorn: not found` you need to activate the poetry env by doing: `poetry shell`
 
@@ -234,4 +231,43 @@ For example:
 # put this inside the config file
 LocalForward 8042 127.0.0.1:8042
 LocalForward 8000 127.0.0.1:8000
+```
+
+
+### Use Alembic to do migrations
+Alembic can help you to launch migrations and propagate changes to the data class models to the database.
+This process can help you to not destroy and recreate the database every time you want to update the database schema.
+
+Remember also that if you want to use alembic in the project you need to have an `alembic` folder with inside the `env.py` script and the `versions` folder empty (if you want to start from zero, instead inside the versions folder you can have some history of migrations of the project)
+
+Create a migration script (inside the folder: alembic)
+```bash
+alembic revision -m "first migration"
+```
+
+Run the first migration
+```bash
+alembic upgrade head
+```
+
+Then every time you want to do a migration (a database change process), you can simply repeat those 2 steps.
+
+If you want to view the current version of the database:
+```bash
+alembic current
+```
+
+If you want to see the history of the database and migrations;
+```bash
+alembic history --verbose
+```
+
+You can also downgrade to a specific point or to the beginning of the database (very dangerous).
+Remember that after a downgrade you can also come back to the head
+```bash
+#downgrade to the beginning of the database
+alembic downgrade base
+
+# upgrade again to the head
+alembic upgrade head
 ```

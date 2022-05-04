@@ -24,7 +24,7 @@ class MultiPage:
         # Drodown to select the page to run
         st.sidebar.write("## App navigation")
         page = st.sidebar.radio(
-            "Selezione pagina", self.pages, format_func=lambda page: page["title"]
+            "Select the page", self.pages, format_func=lambda page: page["title"]
         )
         # run the app function
         page["function"]()

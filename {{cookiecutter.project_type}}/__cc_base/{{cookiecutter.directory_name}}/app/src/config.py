@@ -3,7 +3,9 @@ import os
 from functools import lru_cache
 from dotenv import dotenv_values
 from pathlib import Path
-from pydantic import BaseSettings
+from pydantic import BaseSettings, root_validator
+from typing import Any, Dict
+
 
 from app.src.common.utils import read_yaml
 from app.src.logger import logger
@@ -43,6 +45,22 @@ class Settings(BaseSettings):
     logger.debug(f"App path: {APP_PATH}")
     logger.debug(f"Config path: {CONFIG_PATH}")
     logger.debug(f"Data Path: {DATA_PATH}")
+
+    # EXTRA VALUES not mapped in the config but that can be existing in .env or env variables in the system
+    extra: Dict[str, Any] = None
+
+    @root_validator(pre=True)
+    def build_extra(cls, values: Dict[str, Any]) -> Dict[str, Any]:
+        all_required_field_names = {
+            field.alias for field in cls.__fields__.values() if field.alias != "extra"
+        }  # to support alias
+
+        extra: Dict[str, Any] = {}
+        for field_name in list(values):
+            if field_name not in all_required_field_names:
+                extra[field_name] = values.pop(field_name)
+        values["extra"] = extra
+        return values
 
 
 def env_load(env_file: str) -> Settings:

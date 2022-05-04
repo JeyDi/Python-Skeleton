@@ -29,14 +29,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
 
 
 # Project Python definition
-WORKDIR /fastapi
+WORKDIR /app
 
 #Copy all the project files
 COPY pyproject.toml .
 COPY poetry.lock .
 COPY /app ./app
 COPY .env .
-COPY ./script/launch.sh .
+COPY launch.sh .
 # COPY docs ./docs
 # COPY mkdocs.yml .
 

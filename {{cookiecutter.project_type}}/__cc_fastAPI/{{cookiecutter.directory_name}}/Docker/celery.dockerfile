@@ -1,11 +1,12 @@
 FROM python:3.8-slim-buster
 
 # Metadata
-LABEL name="Celery Template"
+LABEL name="Celery Worker"
 LABEL maintainer="JeyDi"
 LABEL version="0.1"
 
 ARG YOUR_ENV="virtualenv"
+ARG POETRY_VERSION="1.1.13"
 
 ENV YOUR_ENV=${YOUR_ENV} \
     PYTHONFAULTHANDLER=1 \
@@ -15,7 +16,7 @@ ENV YOUR_ENV=${YOUR_ENV} \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_VERSION=1.1.13 \
+    POETRY_VERSION=${POETRY_VERSION} \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
 
@@ -30,9 +31,8 @@ WORKDIR /celery
 
 #Copy all the project files
 COPY pyproject.toml .
-#COPY poetry.lock .
+COPY poetry.lock .
 COPY /app ./app
-COPY .env .
 
 
 # Install libraries

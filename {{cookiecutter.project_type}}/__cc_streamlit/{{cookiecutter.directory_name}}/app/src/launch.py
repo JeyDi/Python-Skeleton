@@ -1,8 +1,10 @@
 import streamlit as st
 from app.src.components.multipage import MultiPage
-from app.src.components.pages import start, sentiment, text_analysis
+from app.src.components.pages import start, second_page
 
 st.set_page_config(layout="wide")
+
+st.subheader("Streamlit multipage template")
 
 # Create an instance of the app
 app = MultiPage()
@@ -17,5 +19,4 @@ col2.title("PBG App")
 
 # Add all your applications (pages) here (remember to import first)
 app.add_page("Home", start.app)
-app.add_page("Text analysis", text_analysis.app)
-app.add_page("Sentiment analysis", sentiment.app)
+app.add_page("Second_page", second_page.app)

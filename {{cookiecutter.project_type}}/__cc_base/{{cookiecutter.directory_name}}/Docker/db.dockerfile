@@ -1,10 +1,12 @@
-FROM postgres:13.2
+FROM postgres:14.1
+
+RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y libpq-dev gcc curl
 
 RUN mkdir -p /project/backup/
 RUN mkdir -p /project/query/
 
-COPY .env .
-#COPY backup/dbname.sql /project/backup/
+
+#COPY backup/propaganda.sql /project/backup/
 #COPY init.sql /docker-entrypoint-initdb.d/
 
 # install python

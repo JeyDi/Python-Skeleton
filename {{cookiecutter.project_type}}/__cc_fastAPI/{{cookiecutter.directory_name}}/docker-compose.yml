@@ -60,8 +60,7 @@ services:
       dockerfile: ./Docker/celery.dockerfile
       context: .
     container_name: worker
-    command: celery --app=app.celery.app.worker worker --loglevel=info
-      --logfile=logs/celery.log
+    command: celery --app=app.celery.app.worker worker --loglevel=info -P threads
     # volumes:
     #   - ${CELERY_VOLUME:-./volumes/celery}:/app
     env_file:
@@ -88,12 +87,13 @@ services:
     container_name: dashboard
     command: celery --app=app.celery.app.worker flower
       --port=${CELERY_INTERNAL_PORT:-5555}
-      --broker=${CELERY_BROKER_URL:-redis://redis:6379/0}
+      --broker=${CELERY_BROKER_URL:-redis://jf_redis:6379/0}
     ports:
       - ${FLOWER_PORT:-5556}:5555
     env_file:
       - .env
     environment:
+      CELERY_DASHBOARD: "true"
       CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
       CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
       RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}

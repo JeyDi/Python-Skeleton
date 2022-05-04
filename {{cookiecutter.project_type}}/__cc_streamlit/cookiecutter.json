@@ -3,7 +3,13 @@
     "author": "Andrea Guzzo",
     "directory_name": "{{cookiecutter.project.lower().strip().replace(' ','-')}}",
     "description": "Description of the project",
-    "open_source_license": ["Not open source", "MIT", "LGPL3", "GPL3", "APACHE2"],
+    "open_source_license": [
+        "Not open source",
+        "MIT",
+        "LGPL3",
+        "GPL3",
+        "APACHE2"
+    ],
     "_copy_without_render": [
         ".vscode/*",
         "notebooks/*",
