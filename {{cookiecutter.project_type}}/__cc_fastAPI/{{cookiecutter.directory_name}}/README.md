@@ -33,6 +33,35 @@ Please feel free to open issues and pull requests if something is missing or nee
 - Automatic CI/CD pipelines for github and gitlab
 - MKDocs documentation system and integration
 
+### Cache System
+
+The cache system it's created with `redis` and `memcache` libraries.
+
+If you want to test the cache system with redis you have to create the redis container up there is also the possibility to have the web interface to check the informations about the cache.
+
+If you want to use memcache you have to install memcache manually in your system before.
+
+
+** Redis Caching notes**
+- https://rednafi.github.io/digressions/python/database/2020/05/25/python-redis-cache.html
+- https://realpython.com/python-redis/
+- aioredis official doc (v2) https://aioredis.readthedocs.io/en/v2.0.1/
+- aioredis high level api: https://aioredis.readthedocs.io/en/v2.0.1/api/high-level/#aioredis.client.Redis
+- redis py default library documentation: https://redis.readthedocs.io/en/latest/
+- fastapi_cache library: https://github.com/long2ice/fastapi-cache/blob/master/fastapi_cache/backends/redis.py
+- introduction to redis: https://redistogo.com/documentation/introduction_to_redis
+- introduction to asyncaio: https://realpython.com/async-io-python/
+- examples with asyncaio: https://www.velotio.com/engineering-blog/async-features-in-python#:~:text=An%20async%20function%20uses%20the,Tasks%20as%20a%20Future%20object.
+
+**Memcache notes**
+aiomcache example to cache in memory variables.
+asyncio (PEP 3156) library to work with memcached.
+- official documentation: https://pypi.org/project/aiomcache/
+- implementation of functions: https://github.com/aio-libs/aiomcache/blob/master/aiomcache/client.py
+- https://realpython.com/python-memcache-efficient-caching/
+
+WARNING: remember to install memcached manually on your system before using it
+
 ## Install and configure the project
 
 First of all it's important to install `poetry`.  

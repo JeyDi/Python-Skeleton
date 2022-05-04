@@ -45,14 +45,27 @@ services:
         ata"
       - "${POSTGRES_BACKUP_DIR:-/opt/fastapi/backup}:/project/backup"
 
-  #Redis database (used with celery)
   redis:
     image: redis:6.2.6
-    container_name: redis
+    container_name: clustering_redis
     env_file:
       - .env
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-ubuntu}
+      - REDIS_REPLICATION_MODE=master
     ports:
       - "${REDIS_PORT:-6379}:6379"
+
+  # If you want to connect you have to use internal docker post and settings
+  redis_insight: # redis db visualization dashboard
+    container_name: clustering_redis_insight
+    image: redislabs/redisinsight:1.11.1
+    ports:
+      - ${REDIS_INSIGHT_PORT:-6363}:8001
+    depends_on:
+      - redis
+    # volumes:
+    #   - redisinsight:/db
 
   #Celery single worker
   worker:
