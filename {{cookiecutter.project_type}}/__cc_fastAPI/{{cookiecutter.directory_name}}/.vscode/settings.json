@@ -3,19 +3,18 @@
   "python.linting.flake8Enabled": true,
   "python.linting.mypyEnabled": false,
   "python.linting.enabled": true,
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "server": "localhost",
-      "port": 5442,
-      "driver": "PostgreSQL",
-      "name": "FastAPI Local",
-      "username": "root",
-      "database": "fastapi",
-      "password": "SUPERduper42"
-    }
-  ],
+  "python.testing.pytestArgs": ["test"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
   "editor.formatOnSave": true,
   "files.autoSave": "afterDelay",
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "autoDocstring.customTemplatePath": ".vscode/google_no_types.mustache",
+  "[python]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "files.exclude": {
+    "**/__pycache__": true
+  }
 }

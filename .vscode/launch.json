@@ -20,8 +20,8 @@
       "name": "Python: Streamlit",
       "type": "python",
       "request": "launch",
-      "module": "streamlit.cli",
-      "args": ["run", "${workspaceFolder}/main.py"],
+      "module": "streamlit",
+      "args": ["run", "${workspaceFolder}/app/main.py"],
       "cwd": "${workspaceFolder}",
       "env": {
         "PYTHONPATH": "${cwd}"
@@ -47,10 +47,12 @@
       "type": "python",
       "request": "launch",
       "module": "uvicorn",
-      "args": ["main:app", "--reload", "--port", "8000"],
+      "cwd": "${workspaceFolder}",
+      "args": ["app.main:app", "--reload", "--port", "8044"],
+      "jinja": true,
       "env": {
-        "API_ENDPOINT_PORT": "8000",
-        "VERBOSITY": "debug"
+        "PYTHONPATH": "${cwd}",
+        "TEST": "debugger"
       }
     },
     {

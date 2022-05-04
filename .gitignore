@@ -1,2 +1,4 @@
 .DS_Store
 .venv
+poetry.lock
+.pytest_cache

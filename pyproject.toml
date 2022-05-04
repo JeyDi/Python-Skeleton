@@ -4,6 +4,17 @@ version = "0.1.0"
 description = "Python templates collection"
 authors = ["JeyDi"]
 license = "MIT"
+homepage = ""
+repository = ""
+documentation = ""
+
+classifiers = [
+    "Topic :: Cookiecutter",
+    "Topic :: Template",
+    "Topic :: Python",
+    "Topic :: App"
+]
+
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"

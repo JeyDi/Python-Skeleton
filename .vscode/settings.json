@@ -9,10 +9,12 @@
   "editor.formatOnSave": true,
   "files.autoSave": "afterDelay",
   "python.formatting.provider": "black",
-  "workbench.colorCustomizations": {
-    "editorRuler.foreground": "#ff4081",
-    "activityBar.background": "#4F1D22",
-    "titleBar.activeBackground": "#6F2830",
-    "titleBar.activeForeground": "#FEFBFC"
+  "autoDocstring.customTemplatePath": ".vscode/google_no_types.mustache",
+  "[python]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "files.exclude": {
+    "**/__pycache__": true
   }
 }
