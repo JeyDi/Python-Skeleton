@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: ./Docker/app.dockerfile
       context: .
-    container_name: {{cookiecutter.project}}-dashboard
+    container_name: dashboard
     env_file:
       - .env
     restart: always
@@ -22,7 +22,7 @@ services:
       context: .
     env_file:
       - .env
-    container_name: {{cookiecutter.project}}-db
+    container_name: db
     #image: postgres:13.2
     environment:
       POSTGRES_DB: ${APP_DB_NAME}
