@@ -82,8 +82,7 @@ def env_load(env_file: str) -> Settings:
         env_settings = dict(env_settings)
         # define and create the new object
         settings = Settings(**env_settings)
-        # launch the functions to generate the configurations
-        settings._set_model_config()
+        
         return settings
     except Exception as message:
         print(f"Error: impossible to read the env: {message}")
@@ -114,7 +113,6 @@ def get_settings(settings: Settings = None, env_file: str = None, **kwargs) -> S
                     settings = env_load(env_file)
             else:
                 settings = Settings(**kwargs)
-                settings._set_model_config()
 
         return settings
     except Exception as message:

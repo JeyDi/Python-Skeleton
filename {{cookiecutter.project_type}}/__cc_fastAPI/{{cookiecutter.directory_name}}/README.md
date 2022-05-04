@@ -23,6 +23,8 @@ Please feel free to open issues and pull requests if something is missing or nee
 - Celery job monitoring with flower
 - Grafana and Prometheus integration with Celery and Flower
 - RabbitMQ Integration (not tested yet)
+- Caching system with Redis async
+- Caching system with Memcached async
 
 ### Features to be done
 - FastAPI Web socket

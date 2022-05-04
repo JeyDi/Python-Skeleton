@@ -7,7 +7,14 @@ from functools import lru_cache
 from dotenv import dotenv_values
 from pathlib import Path
 from typing import List, Any, Dict, Optional, Union
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator, root_validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseSettings,
+    EmailStr,
+    PostgresDsn,
+    validator,
+    root_validator,
+)
 
 
 class Settings(BaseSettings):
@@ -103,6 +110,79 @@ class Settings(BaseSettings):
     # APP_USER_BIRTH_DATE: date = datetime.strptime("2021-10-11"), "%Y-%m-%d").date()
     APP_USER_ISADMIN: bool = bool("True")
 
+    ## Set Redis Config
+    REDIS_USER: str = "default"
+    REDIS_PASSWORD: str = ""
+    REDIS_ADDRESS: str = "redis://localhost"
+    REDIS_PORT: str = "6362"
+    REDIS_ENCODING: str = "utf-8"
+    REDIS_DB: str = "0"
+
+    REDIS_CONFIG = {
+        "user": REDIS_USER,
+        "password": REDIS_PASSWORD,
+        "address": REDIS_ADDRESS,
+        "port": REDIS_PORT,
+        "encoding": REDIS_ENCODING,
+        "db": REDIS_DB,
+    }
+
+    REDIS_CONNECTION: object = None
+
+    def _set_redis_settings(
+        self,
+        user: str = REDIS_USER,
+        password: str = REDIS_PASSWORD,
+        address: str = REDIS_ADDRESS,
+        port: str = REDIS_PORT,
+        encoding: str = REDIS_ENCODING,
+        db: str = REDIS_DB,
+    ) -> dict:
+        self.REDIS_USER = user
+        self.REDIS_PASSWORD = password
+        self.REDIS_ADDRESS = address
+        self.REDIS_PORT = port
+        self.REDIS_ENCODING = encoding
+        self.REDIS_DB = db
+
+        # launch the set_redis_connection
+        redis_config = self._set_redis_connection()
+        return redis_config
+
+    def _set_redis_connection(self, redis_config: dict = None) -> dict:
+        """
+        The function is used to set the redis connection parameters
+
+        :param redis_config: dict = None
+        :type redis_config: dict
+        :return: A dictionary with the redis configuration updated
+        """
+        if redis_config:
+            # reconfigure the db_config connection dictionary
+            self.REDIS_CONFIG = redis_config
+        else:
+            # manually set each parameters
+            self.REDIS_CONFIG["user"] = self.REDIS_USER
+            self.REDIS_CONFIG["password"] = self.REDIS_PASSWORD
+            self.REDIS_CONFIG["address"] = self.REDIS_ADDRESS
+            self.REDIS_CONFIG["port"] = self.REDIS_PORT
+            self.REDIS_CONFIG["encoding"] = self.REDIS_ENCODING
+            self.REDIS_CONFIG["db"] = self.REDIS_DB
+
+        # return the final redis_config saved inside the object
+        # need to copy the configuration because instead it's passed as a reference
+        return self.REDIS_CONFIG.copy()
+    
+    def _set_all_connections(self) -> bool:
+        """
+        Launch the configuration of the all db connection that we have in the data connector one:
+        - relational database (postgres, mysql)
+        - solr db
+        - redis for cache
+        """
+        self._set_redis_connection()
+        return True
+
     # EXTRA VALUES not mapped in the config but that can be existing in .env or env variables in the system
     extra: Dict[str, Any] = None
 
@@ -158,7 +238,7 @@ def env_load(env_file: str) -> Settings:
         # define and create the new object
         settings = Settings(**env_settings)
         # launch the functions to generate the configurations
-        settings._set_model_config()
+        settings._set_all_connections()
         return settings
     except Exception as message:
         print(f"Error: impossible to read the env: {message}")
@@ -189,7 +269,7 @@ def get_settings(settings: Settings = None, env_file: str = None, **kwargs) -> S
                     settings = env_load(env_file)
             else:
                 settings = Settings(**kwargs)
-                settings._set_model_config()
+                settings._set_all_connections()
 
         return settings
     except Exception as message:
