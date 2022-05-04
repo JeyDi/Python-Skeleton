@@ -43,7 +43,6 @@ pytest-cov = "^2.8.1"
 autoflake = "^1.3.1"
 ipython = "^7.27.0"
 mypy = "^0.931"
-streamlit = "^1.7.0"
 
 
 [tool.isort]
