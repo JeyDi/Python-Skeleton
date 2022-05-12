@@ -23,6 +23,7 @@
       "module": "streamlit",
       "args": ["run", "${workspaceFolder}/app/main.py"],
       "cwd": "${workspaceFolder}",
+      // "envFile": "${workspaceFolder}/.env",
       "env": {
         "PYTHONPATH": "${cwd}"
       }
